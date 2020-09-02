@@ -3,9 +3,46 @@ var router = express.Router();
 const db = require('../database')
 const mongoose = require('mongoose')
 
-/* GET home page. */
+/* 两个表关联查询 */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Express' });
+  const Article = mongoose.model('Article')
+  Article.aggregate([
+    {
+      $lookup: {
+        from: "articlecate",
+        localField: "cid",
+        foreignField: "_id",
+        as: "cate"
+      }
+    }
+
+  ],function(err,docs){
+    res.json(docs)
+  })
+});
+
+/* 三个表关联查询 */
+router.get('/aggregate/three', function(req, res, next) {
+  const Article = mongoose.model('Article')
+  Article.aggregate([
+    {
+      $lookup: {
+        from: "articlecate",
+        localField: "cid",
+        foreignField: "_id",
+        as: "cate"
+      },
+      $lookup: {
+        from: "user",
+        localField: "author_id",
+        foreignField: "_id",
+        as: "user"
+      }
+    }
+
+  ],function(err,docs){
+    res.json(docs)
+  })
 });
 
 router.post('/save', function(req, res, next) {
