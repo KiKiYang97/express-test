@@ -44,8 +44,9 @@ router.put('/update', (req, res, next) => {
   const Article = mongoose.model('Article')
   //batch update
   Article.updateMany(
-
+    //first  设置批处理的条件
     {'title': 'node'},
+    //  second : 设置更改的内容
     {'title': 'node.js'},
     (err, docs) => {
       if(err){return res.json('更新数据失败')}
@@ -57,8 +58,11 @@ router.put('/update', (req, res, next) => {
 
 router.put('/updateOneArticle',(req, res, next) => {
   const Article = mongoose.model('Article')
+  //update方法已过时，尽量使用updateOne.
   Article.updateOne(
+      //first : 找出某个数据，如果不是唯一值，则会针对第一个被录入的数据进行修改
       {'_id':'5f4f5372c9e2f32e3c63bd7a'},
+      //second : 更改的内容
       {'price':198},
       (err,docs) => {
         if(err) {
@@ -70,6 +74,7 @@ router.put('/updateOneArticle',(req, res, next) => {
   )
 })
 
+// find all
 router.get('/find', (req, res, next) => {
   const Article = mongoose.model('Article')
   Article.find({}, (err, docs)=>{
@@ -83,6 +88,7 @@ router.get('/find', (req, res, next) => {
 
 router.get('/findByTitle', (req, res, next) => {
   const Article = mongoose.model('Article')
+  //find by title
   Article.find({'title':'testUpdateOne'}, (err, docs)=>{
     if(err){
       res.json(err);
@@ -116,4 +122,6 @@ router.delete('/delete', (req, res, next) =>{
 
 )
 })
+
+
 module.exports = router;
