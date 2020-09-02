@@ -1,0 +1,34 @@
+db.createUser({
+	user: "dunka",
+	pwd: "186du#kanad-0T",
+	customData: {employeeId : 12345},
+	roles : [{role:"clusterAdmin",db:"admin"},
+{role:"readAnyDatabase",db:"admin"},
+"readWrite"]
+},
+{w:"majority",wtimeout:5000});
+
+
+mongod --dbpath=D:\KikiYang\mongodb\data\ --logpath=D:\KikiYang\mongodb\log\mongod.log --auth --logappend --port=27017 --fork
+
+db.createUser(
+  {
+    user: "kidunkaki",
+    pwd: "186du#kanad-0T",
+    roles: [ { role: "userAdminAnyDatabase", db: "admin" }, "readWriteAnyDatabase" ]
+  }
+)
+
+db.createUser({
+	user: "iotteam",
+	pwd: "1907dunka08",
+	roles:[{role : "dbOwner",db:"DBTest"}]
+})
+
+
+mongo -port 27017 -u "kidunkaki" -p "186du#kanad-0T" --authenticationDatabase "admin"
+
+db.auth("kidunkaki","186du#kanad-0T")
+
+db.auth("iotteam","1907dunka08")
+https://www.jianshu.com/p/62736bff7e2e
