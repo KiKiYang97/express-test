@@ -27,7 +27,7 @@ router.post('/save', function(req, res, next) {
   })
 })
 
-router.post('/saveBody', function(req, res, next) {
+router.post('/saveArticle', function(req, res, next) {
   console.log(req)
   const Article = mongoose.model('Article')
   const body  = new Article(req.body);
@@ -44,6 +44,7 @@ router.put('/update', (req, res, next) => {
   const Article = mongoose.model('Article')
   //batch update
   Article.updateMany(
+
     {'title': 'node'},
     {'title': 'node.js'},
     (err, docs) => {
@@ -54,7 +55,7 @@ router.put('/update', (req, res, next) => {
 
 })
 
-router.put('/updateOneData',(req, res, next) => {
+router.put('/updateOneArticle',(req, res, next) => {
   const Article = mongoose.model('Article')
   Article.updateOne(
       {'_id':'5f4f5372c9e2f32e3c63bd7a'},
@@ -91,7 +92,7 @@ router.get('/findByTitle', (req, res, next) => {
   })
 })
 
-router.get('/findByBody', (req, res, next) => {
+router.get('/findByArticle', (req, res, next) => {
   const Article = mongoose.model('Article')
   const body = req.body;
   Article.find(body, (err, docs)=>{
